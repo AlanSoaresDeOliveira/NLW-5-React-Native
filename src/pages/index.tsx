@@ -1,28 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Button from '../components/Button';
 
-import {Container, Title, Image, Description, CreateAccountButton, CreateAccountButtonText} from './styles';
+import {
+  Title,
+  Image,
+  Description,
+  CreateAccountButton,
+  CreateAccountButtonText,
+  SafeArea,
+} from './styles';
 
-import wateringImg from '../../assets/watering.png'
+import wateringImg from '../../assets/watering.png';
 
 const Welcome: React.FC = () => {
+  const [visible, setVisible] = useState(false);
+
+  function handleVisibility() {
+    setVisible(!visible);
+  }
+
   return (
-    <Container>
+    <SafeArea>
       <Title>
-        Gerencie duas plantas de forma fácil
+        Gerencie {'\n'}
+        suas plantas {'\n'}
+        de forma fácil
       </Title>
-      <Image  source={wateringImg}/>
+
+      {visible && <Image source={wateringImg} />}
+
       <Description>
-        Não esqueça mais de regar suas plantas.
-        Nós cuidamos de lembrar você sempre que precisar.
+        Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você
+        sempre que precisar.
       </Description>
-      <CreateAccountButton>
+
+      {/* <CreateAccountButton
+        activeOpacity={0.7}
+      >
         <CreateAccountButtonText>
           >
         </CreateAccountButtonText>
-      </CreateAccountButton>
-
-    </Container>
-  )
-}
+      </CreateAccountButton> */}
+      <Button title=">" onPress={handleVisibility} />
+    </SafeArea>
+  );
+};
 
 export default Welcome;
