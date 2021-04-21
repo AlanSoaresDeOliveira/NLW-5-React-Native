@@ -11,57 +11,38 @@ export const SafeArea = styled.SafeAreaView`
   justify-content: space-around;
 `;
 
-export const KeyBoardAvoid = styled.KeyboardAvoidingView.attrs({
-
-})`
-  flex: 1;
-  width: 100%;
-`;
-
 export const Container = styled.View`
   flex: 1;
-  width: 100%;
-`;
-
-export const Header = styled.View`
   align-items: center;
-`;
-
-export const Form = styled.View`
-  flex: 1;
   justify-content: center;
-  align-items: center;
-  padding: 0 54px;
+  width: 100%;
+  padding: 30px;
 `;
 
 export const Emoji = styled.Text`
-  font-size: 44px;
+  font-size: 78px;
 `;
 
 export const TitleText = styled.Text`
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
-  line-height: 32px;
+  line-height: 38px;
   color: ${colors.heading};
   font-family: ${fontsJost.heading};
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
-export const Input = styled.TextInput`
-  border-bottom-width: 1px;
-  color: black;
-  border-color: ${colors.gray};
-
-  width: 100%;
-  font-size: 18px;
-  margin-top: 50px;
-  padding: 10px;
+export const SubTitleText = styled.Text`
+  font-size: 17px;
   text-align: center;
+  color: ${colors.heading};
+  font-family: ${fontsJost.text};
+  padding: 20px 20px;
 `;
 
-
-export const ContainerOfButton = styled.View`
-  margin-top: 40px;
+export const Footer = styled.View`
+  /* flex: 1; */
   width: 100%;
+  margin-top: 20px;
   padding: 0 20px;
 `;

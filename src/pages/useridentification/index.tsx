@@ -1,15 +1,29 @@
 import React, {useState} from 'react'
-import {Platform} from 'react-native';
+import {Platform, TouchableWithoutFeedback, Keyboard} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
 
 import colors from '../../styles/colors';
 
 import Button from '../../components/Button';
-import { SafeArea, KeyBoardAvoid, Container, Form, Header, Emoji, TitleText,Input, ContainerOfButton} from './styles';
+import {
+  SafeArea,
+  KeyBoardAvoid,
+  Container,
+  Form,
+  Header,
+  Emoji,
+  TitleText,
+  Input,
+  ContainerOfButton
+} from './styles';
 
 const UserIdentification = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<String>();
+
+  const navigation = useNavigation();
 
   function handlerInputBlur() {
     setIsFocused(false)
@@ -25,36 +39,44 @@ const UserIdentification = () => {
     setName(value)
   }
 
+  function handlerStart() {
+    if (name) {
+      navigation.navigate('Confirmation')
+    }
+  }
+
   return (
     <SafeArea>
       <KeyBoardAvoid behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <Container>
-          <Form>
-            <Header>
-              <Emoji>
-                {isFilled ? '😁' :'😀'}
-              </Emoji>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Container>
+            <Form>
+              <Header>
+                <Emoji>
+                  {isFilled ? '😁' :'😀'}
+                </Emoji>
 
-              <TitleText>
-                Como podemos{'\n'} chamar você?
-              </TitleText>
+                <TitleText>
+                  Como podemos{'\n'} chamar você?
+                </TitleText>
 
-            </Header>
+              </Header>
 
-            <Input
-              style={[(isFocused || isFilled)  && { borderColor: colors.green}]}
-              onBlur={handlerInputBlur}
-              onFocus={handlerInputFocus}
-              placeholder="Digite um nome"
-              onChangeText={handlerInputChange}
-            />
+              <Input
+                style={[(isFocused || isFilled)  && { borderColor: colors.green}]}
+                onBlur={handlerInputBlur}
+                onFocus={handlerInputFocus}
+                placeholder="Digite um nome"
+                onChangeText={handlerInputChange}
+              />
 
-            <ContainerOfButton>
-              <Button title="Confirmar"/>
-            </ContainerOfButton>
+              <ContainerOfButton>
+                <Button title="Confirmar" onPress={handlerStart}/>
+              </ContainerOfButton>
 
-          </Form>
-        </Container>
+            </Form>
+          </Container>
+        </TouchableWithoutFeedback>
       </KeyBoardAvoid>
     </SafeArea>
   )

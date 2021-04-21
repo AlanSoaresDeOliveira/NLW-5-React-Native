@@ -8,12 +8,18 @@ import {
   Wrapper,
 } from './styles';
 
+import {useNavigation} from '@react-navigation/native';
+
 import wateringImg from '../../../assets/watering.png';
 import colors from '../../styles/colors';
 import Icon from 'react-native-vector-icons/Feather';
 
 const Welcome: React.FC = () => {
+  const navigation = useNavigation();
 
+  function handlerStart() {
+    navigation.navigate('UserIdentification')
+  }
   return (
     <SafeArea>
       <Wrapper>
@@ -32,6 +38,7 @@ const Welcome: React.FC = () => {
 
         <CreateAccountButton
           activeOpacity={0.7}
+          onPress={handlerStart}
         >
           <Icon name="chevron-right" size={32} color={colors.white} />
         </CreateAccountButton>
