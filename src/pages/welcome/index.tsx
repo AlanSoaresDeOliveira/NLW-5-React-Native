@@ -20,6 +20,7 @@ const Welcome: React.FC = () => {
   function handlerStart() {
     navigation.navigate('UserIdentification')
   }
+
   return (
     <SafeArea>
       <Wrapper>

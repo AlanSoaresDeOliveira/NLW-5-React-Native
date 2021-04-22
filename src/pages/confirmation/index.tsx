@@ -8,10 +8,17 @@ import {
   Footer
 } from './styles';
 
+import {useNavigation} from '@react-navigation/native';
+
 import Button from '../../components/Button';
 
 const Confirmation: React.FC = () => {
 
+  const navigation = useNavigation();
+
+  function handlerMoveOn() {
+    navigation.navigate("PlantSelect");
+  }
   return (
     <SafeArea>
       <Container>
@@ -28,7 +35,7 @@ const Confirmation: React.FC = () => {
         </SubTitleText>
 
         <Footer>
-         <Button title="Começar" />
+         <Button title="Começar" onPress={handlerMoveOn} />
         </Footer>
       </Container>
 
