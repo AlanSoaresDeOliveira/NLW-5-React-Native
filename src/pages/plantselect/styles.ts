@@ -1,9 +1,10 @@
-import { Dimensions } from 'react-native';
+import {  FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import colors from '../../styles/colors';
 import fontsJost from '../../styles/fonts';
 
-const {width} = Dimensions.get('window')
+import { Enviroment } from './index';
+import { Plants } from './index';
 
 export const Container = styled.View`
   flex: 1;
@@ -28,3 +29,23 @@ export const SubTitle = styled.Text`
   font-family: ${fontsJost.text};
   line-height: 20px;
 `;
+
+export const EnviromentContainer = styled.View`
+`;
+
+export const EnviromentFlatList = styled(FlatList as new () => FlatList<Enviroment>)`
+  padding: 24px 24px;
+`;
+
+
+export const PlantsContainer = styled.View`
+  flex: 1;
+  padding: 0 14px;
+  justify-content: center;
+`;
+
+export const PlantsFlatList = styled(FlatList as new () => FlatList<Plants>)`
+  padding: 0px 20px;
+  /* margin-bottom: 10px; */
+`;
+

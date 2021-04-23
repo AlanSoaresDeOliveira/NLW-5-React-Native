@@ -8,10 +8,10 @@ interface EnviromentButtonProps extends RectButtonProps {
   active?: boolean;
 }
 
-const EnviromentButton: React.FC<EnviromentButtonProps> = ({ title, active = false, ...rest}) => {
+const EnviromentButton: React.FC<EnviromentButtonProps> = ({ title, active, ...rest}) => {
   return (
-    <Button {...rest}>
-      <NameText>{ title }</NameText>
+    <Button {...rest} active={active}>
+      <NameText active={active}>{ title }</NameText>
     </Button>
   );
 };

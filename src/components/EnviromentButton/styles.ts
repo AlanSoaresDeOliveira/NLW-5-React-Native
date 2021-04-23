@@ -6,18 +6,27 @@ import fonts from '../../styles/fonts';
 
 import {RectButton, RectButtonProps} from 'react-native-gesture-handler';
 
-export const Button = styled(RectButton)`
+interface EnviromentButtonProps {
+  active?: boolean;
+}
+
+interface EnviromentButtonTextProps {
+  active?: boolean;
+}
+
+export const Button = styled(RectButton)<EnviromentButtonProps>`
   height: 40px;
   width: 76px;
-  background-color: ${colors.shape};
+  background-color: ${({active}) => active ? colors.green_light : colors.shape};
   justify-content: center;
   align-items: center;
   border-radius: 12px;
+  margin-right: 5px;
 
 `;
 
-export const NameText = styled.Text`
+export const NameText = styled.Text<EnviromentButtonTextProps>`
   /* font-size: 15px; */
-  color: ${colors.heading};
-  font-family: ${fonts.text};
+  color:  ${({active}) => active ? colors.green_dark : colors.heading};
+  font-family: ${fonts.heading};
 `;
