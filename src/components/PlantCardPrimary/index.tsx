@@ -15,7 +15,6 @@ interface PlantProps extends RectButtonProps {
 }
 
 const PlantCardPrimary: React.FC<PlantProps> = ({ data, ...rest}) => {
-  console.log(data.photo)
   return (
     <Button {...rest}>
       <SvgFromUri
