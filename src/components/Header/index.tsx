@@ -3,12 +3,16 @@ import {Container, NameView, HeloText, UserNameText, UserImage} from './styles';
 
 import userIMG from '../../../assets/alan.png'
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  name: string;
+}
+
+const Header: React.FC<HeaderProps> = ({name}) => {
   return (
     <Container>
       <NameView>
         <HeloText>Olá,</HeloText>
-        <UserNameText>Alan</UserNameText>
+        <UserNameText>{name}</UserNameText>
       </NameView>
       <UserImage source={userIMG}/>
 

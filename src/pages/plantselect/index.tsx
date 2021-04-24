@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { ActivityIndicator } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import api from '../../service/api';
 
 import Header from '../../components/Header';
@@ -40,7 +42,7 @@ export interface Plants {
 }
 
 const PlantSelect: React.FC = () => {
-
+  const [name, setName] = useState<string>();
   const [enviroments, setEnviroments] = useState<Enviroment[]>([]);
   const [enviromentSelected, setEnviromentSelected] = useState<string>('all');
   const [plants, setPlants] = useState<Plants[]>([]);
@@ -49,7 +51,18 @@ const PlantSelect: React.FC = () => {
 
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [loadAll, setLoadAll] = useState(false);
+
+  useEffect(() => {
+    async function loadStorageUserName() {
+      try {
+        const userName = await AsyncStorage.getItem('@plantmanager:user');
+        setName(userName || '');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    loadStorageUserName();
+  },[]);
 
   useEffect(() => {
     async function fetchEnviroment() {
@@ -70,7 +83,7 @@ const PlantSelect: React.FC = () => {
 
   useEffect(() => {
     fetchPlants();
-  },[]);
+  },[setLoad, setFilteredPlants, setPlants, setLoadingMore]);
 
   async function fetchPlants() {
     const { data } = await api.get(`plants1?_sort=name&_order=asc&_page=${page}&_limit=8`);
@@ -85,7 +98,7 @@ const PlantSelect: React.FC = () => {
       setPlants(data);
       setFilteredPlants(data);
     }
-
+    console.log("Plants", plants)
     setLoad(false)
     setLoadingMore(false)
   }
@@ -97,13 +110,13 @@ const PlantSelect: React.FC = () => {
     if (key == 'all')
       return setFilteredPlants(plants)
 
-      console.log(plants)
+    console.log("Plants", plants)
     const filtered = plants.filter(plant =>
       plant.environments.includes(key)
     )
     console.log(filtered)
     setFilteredPlants(filtered)
-  },[]);
+  },[plants]);
 
   function handlerFetchMore(distance: number) {
     if (distance < 1)
@@ -120,7 +133,7 @@ const PlantSelect: React.FC = () => {
     <Container>
 
       <ContainerHeader>
-        <Header />
+        <Header name={name || ''}/>
         <Title>Em qual ambiente</Title>
         <SubTitle>você quer colocar sua planta?</SubTitle>
       </ContainerHeader>
@@ -147,6 +160,7 @@ const PlantSelect: React.FC = () => {
 
         <PlantsFlatList
           data={filteredPlants}
+          keyExtractor={(key) => String(key.id)}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           onEndReachedThreshold={0.1}

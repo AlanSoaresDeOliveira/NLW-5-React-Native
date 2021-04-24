@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
-import {Platform, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {Platform, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -39,10 +41,19 @@ const UserIdentification: React.FC = () => {
     setName(value)
   }
 
-  function handlerStart() {
-    if (name) {
-      navigation.navigate('Confirmation')
+  async function handlerStart() {
+    if (!name) {
+      return Alert.alert('Me diz como chamar você');
     }
+
+    try {
+      await AsyncStorage.setItem('@plantmanager:user', name as string );
+    } catch (error) {
+      console.log(error);
+    }
+
+    navigation.navigate('Confirmation')
+
   }
 
   return (

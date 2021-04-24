@@ -13,7 +13,7 @@ const stackRoutes = createStackNavigator();
 const AppRoutes: React.FC = () => (
   <stackRoutes.Navigator
     headerMode='none'
-    initialRouteName="PlantSelect"
+    // initialRouteName="PlantSelect"
     screenOptions={{
       cardStyle: {
         backgroundColor: colors.white
