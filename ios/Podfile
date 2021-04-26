@@ -16,6 +16,8 @@ target 'plantmanager' do
     inherit! :complete
     # Pods for testing
   end
+#  pod 'FBSDKCoreKit'
+  pod 'FBSDKCoreKit/Swift'
 
   # Enables Flipper.
   #
