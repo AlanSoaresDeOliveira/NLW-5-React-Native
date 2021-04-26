@@ -47,7 +47,7 @@ export const TipContainer = styled.View`
   padding: 20px;
   border-radius: 20px;
   position: relative;
-  bottom: 60px;
+  bottom: 70px;
 `;
 
 export const TipImage = styled.Image`
@@ -70,6 +70,18 @@ export const AlertText = styled.Text`
   color: ${colors.heading};
   font-size: 12px;
   margin-bottom: 5px;
+`;
+
+export const DatePickerButton = styled.TouchableOpacity`
+  width: 100%;
+  align-items: center;
+  padding: 40px 0;
+`;
+
+export const DatePickerButtonText = styled.Text`
+  color: ${colors.heading};
+  font-size: 24px;
+  font-family: ${fonts.text}
 `;
 
 
