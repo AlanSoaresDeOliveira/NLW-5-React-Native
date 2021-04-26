@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback} from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/core';
 
 import api from '../../service/api';
 
@@ -22,6 +23,7 @@ import {
   PlantsContainer,
   PlantsFlatList
 } from './styles';
+
 
 export interface Enviroment {
   key: string;
@@ -51,6 +53,8 @@ const PlantSelect: React.FC = () => {
 
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function loadStorageUserName() {
@@ -98,23 +102,20 @@ const PlantSelect: React.FC = () => {
       setPlants(data);
       setFilteredPlants(data);
     }
-    console.log("Plants", plants)
     setLoad(false)
     setLoadingMore(false)
   }
 
   const handleSelectEnvironment = useCallback((key: string) => {
-    console.log(key)
     setEnviromentSelected(key);
 
     if (key == 'all')
       return setFilteredPlants(plants)
 
-    console.log("Plants", plants)
     const filtered = plants.filter(plant =>
       plant.environments.includes(key)
-    )
-    console.log(filtered)
+    );
+
     setFilteredPlants(filtered)
   },[plants]);
 
@@ -127,8 +128,13 @@ const PlantSelect: React.FC = () => {
       fetchPlants();
   }
 
+  function handleSelectedPlantItem(plant: Plants) {
+    navigation.navigate('PlantSave', { plant });
+  }
+
   if (load)
     return <Load />
+
   return (
     <Container>
 
@@ -174,6 +180,7 @@ const PlantSelect: React.FC = () => {
           }
           renderItem={({ item: plant }) => (
             <PlantCardPrimary
+              onPress={() => handleSelectedPlantItem(plant)}
               data={plant}
             />
           )}
